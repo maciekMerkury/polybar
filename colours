@@ -1,0 +1,13 @@
+;static const char fgcol[] = "#a4a6aa"
+;static const char hicol[] = "#E5E9F0"
+;static const char hicol2[] = "#38c442"
+;static const char hicol3[] = "#38c487"
+;static const char errcol[] = "#e20202"
+
+[basic-colours]
+very-dark-gray = #E5E9F0
+dark-gray = #2E3440
+light-gray = #a4a6aa
+green = #38c442
+lime = #38c487
+red = #e20202

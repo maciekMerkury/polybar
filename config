@@ -1,0 +1,201 @@
+[colours]
+include-file = /home/$USER/.config/polybar/colours
+background = ${basic-colours.dark-gray}
+foreground = ${basic-colours.light-gray}
+
+[bar/main]
+
+width = 100%
+height = 25
+
+; if not 0, then the corners are rounded and it's dudu
+radius = 0 
+
+; is the center in the middle of the bar or the screen
+fixed-center = true
+
+; colours
+background = ${colours.background}
+foreground = ${colours.foreground}
+
+line-size = 1
+line-color = #f00
+
+module-margin-left = 1
+module-margin-right = 2
+
+border-size = 0
+border-color = #000000000
+
+padding-left = 0
+padding-right = 0
+
+; modules
+modules-left = dwm
+modules-center = date
+modules-right = pulseaudio internet-speed eth 
+
+
+
+[module/dwm]
+type = internal/dwm
+format = <label-tags> <label-layout> <label-floating> <label-title>
+
+; Left-click to view tag, right-click to toggle tag view
+enable-tag-click = true
+
+; Scroll to cycle between available tags
+enable-tags-scroll = true
+; If this and "enable-tags-scroll" are true, scrolling will view all tags regardless if occupied
+tags-scroll-empty = false
+; If this and "enable-tags-scroll" are true, scrolling will cycle through tags backwards
+tags-scroll-reverse = false
+; If this and "enable-tags-scroll" are true, scrolling will wrap tags when scrolling
+tags-scroll-wrap = false
+
+; Left-click to set secondary layout, right-click to switch to previous layout
+enable-layout-click = false
+; If this and "enable-layout-click" are true, clicking the layout symbol will change to this layout
+secondary-layout-symbol = [M]
+
+; Scroll to cycle between available layout
+enable-layout-scroll = false
+; Wrap when scrolling and reaching begining/end of layouts
+layout-scroll-wrap = true
+; Reverse scroll direction
+layout-scroll-reverse = false
+
+; Separator between shown tags
+;label-separator = |
+
+; Title of currently focused window
+; Available tokens:
+;       %title%
+label-title = %title%
+label-title-padding = 0
+label-title-forefround = ${colours.tags-primary} 
+label-title-maxlen = 50
+
+; Symbol of current layout
+; Available tokens:
+;       %symbol%
+label-layout = %symbol%
+label-layout-padding = 0
+label-layout-foreground = ${colours.white}
+label-layout-background = ${colours.tags-primary}
+
+; Text to show when currently focused window is floating
+label-floating = < >
+
+; States: focused, undofuces, visible, urgent, empty
+; Available tokens:
+;       %name%
+padding = 2
+; focused = Selected tag on focused monitor
+label-focused = %name%
+label-focused-background = ${colours.tags-focused-background}
+label-focused-underline = ${colours.tags-primary}
+label-focused-padding = ${self.padding}
+
+; unfocused = Unselected tag on selected monitor
+label-unfocused = %name%
+label-unfocused-padding = ${self.padding}
+
+; visible = Unselected tag, but occupied tag on any monitor
+label-visible = %name%
+label-visible-background = ${colours.tags-occupied}
+label-visible-underline = ${colours.tags-occupied-underline}
+label-visible-padding = ${self.padding}
+
+; urgent = Unselected tag with window that has urgency hint set
+label-urgent = %name%
+label-urgent-background = ${colours.alert}
+label-urgent-padding = ${self.padding}
+
+; empty = Unselected and unoccupied tag
+; This can be set to an empty string to hide empty tags
+label-empty = %name%
+label-empty-background = ${colours.tags-primary}
+label-empty-padding = ${self.padding}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = 
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colours.foreground-alt}
+format-underline = ${colours.date-colour}
+
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${colours.modules-foreground}
+
+label-muted = muted
+label-muted-foreground = ${colours.modules-foreground}
+
+bar-volume-width = 0
+
+click-right = pavucontrol
+
+[module/eth]
+type = internal/network
+interval = 5
+
+interface = enp34s0
+
+accumulate-stats = false
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = eth: <label-connected>
+label-connected = %local_ip%
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+label-disconnected = ""
+
+[module/internet-speed]
+type = internal/network
+interval = 1.0
+
+interface = enp34s0
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+accumulate-stats = true
+
+format-connected = <label-connected>
+format-connected-prefix = "" 
+format-connected-underline = #000
+;format-connected-underline = ${colours.internet-underline}
+
+; Then have to be doubled, as I couldn't make it work if done otherwise
+label-connected = D: %downspeed% U: %upspeed% 
+label-disconnected = D: %downspeed% U: %upspeed%
+
+format-disconnected = <label-disconnected>
+format-disconnected-prefix = ""
+format-disconnected-underline = ${colours.internet-underline-disconnected}
+
+[settings]
+screenchange-reload = true
+
+
+[global/wm]
+;margin-top = 5
+;margin-bottom = 5
+
+
+; vim:ft=dosini
